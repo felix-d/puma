@@ -328,6 +328,7 @@ module Puma
       @parsed_bytes = @parser.execute(@env, @buffer, @parsed_bytes)
 
       if @parser.finished?
+        @env['REQUEST_BYTES'] = @buffer.dup
         return setup_body
       elsif @parsed_bytes >= MAX_HEADER
         raise HttpParserError,
